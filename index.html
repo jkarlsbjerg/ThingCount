@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thing Count</title>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Thing Count">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+        }
+    </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React and Babel (Pinned to 7.23.6 to fix the 'wve' module error) -->
@@ -109,17 +121,20 @@
             { id: '28', name: '22 pull apart', exportName: 'pull apart', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
             { id: '29', name: '23 alphabet', exportName: 'RC alphabet', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
             { id: '30', name: '24 external', exportName: 'RC external', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-            { id: '30a', name: '25 waiter\'s carry 12 lbs 45s', exportName: 'waiter\'s carry (12lbs, 45s)', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '30b', name: '25 x10 chin tuck', exportName: 'x10 chin tuck', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
             { id: '31', name: '30 mas shin', exportName: 'shin', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
             { id: '32', name: '31 mas gun', exportName: 'gun', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
             { id: '33', name: '32 mas finger', exportName: 'finger', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
             { id: '34', name: '33 mas ball', exportName: 'ball', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
             { id: '35', name: '34 quad roll', exportName: 'quad roll', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-            { id: '40', name: '35 Luis', exportName: 'Luis', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
+            { id: '40', name: '35 Luis/physio', exportName: 'Luis/physio', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
             { id: '36', name: '40 x20 air squat', exportName: 'x20 air squat', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '37', name: '41 squat stretch', exportName: 'deep squat stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '38', name: '50 skater twist', exportName: 'skater twist', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '38a', name: '50 x10 walking lunges', exportName: 'x10 walking lunges', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '39', name: '51 x10 calf', exportName: 'x10 calf raise and stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '39a', name: '52 x10 hip airplane', exportName: 'x10 hip airplane', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '39b', name: '53 x2 hip CAR', exportName: 'x2 hip CAR', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
             { id: '60', name: '60 SMM (full)', exportName: 'SMM (full)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 },
             { id: '61', name: '61 SMM (partial)', exportName: 'SMM (partial)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 }
         ];
@@ -135,23 +150,31 @@
             return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
         }
 
+        // One-time changes to saved data, applied in order when the stored version is lower.
+        // Runs once per browser, so squares deleted later stay deleted.
+        const DATA_VERSION = 2;
+        const MIGRATIONS = {
+            2: (items) => {
+                const fromCode = id => INITIAL_DATA.find(i => i.id === id);
+                let next = items
+                    .filter(i => i.id !== '30a')
+                    .map(i => i.id === '40' && i.name === '35 Luis' ? { ...i, name: '35 Luis/physio', exportName: 'Luis/physio' } : i);
+                ['30b', '38a', '39a', '39b'].forEach(id => {
+                    if (!next.some(i => i.id === id)) next.push(fromCode(id));
+                });
+                return next;
+            }
+        };
+
         function App() {
             const [items, setItems] = useState(() => {
                 const saved = localStorage.getItem('thingCountApp_v2_data');
                 if (saved) {
-                    const parsed = JSON.parse(saved);
-                    const requiredIds = [
-                        { id: '17a', name: '10 couch', exportName: 'couch', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-                        { id: '30a', name: '25 waiter\'s carry 12 lbs 45s', exportName: 'waiter\'s carry (12lbs, 45s)', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-                        { id: '40', name: '35 Luis', exportName: 'Luis', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-                        { id: '60', name: '60 SMM (full)', exportName: 'SMM (full)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 },
-                        { id: '61', name: '61 SMM (partial)', exportName: 'SMM (partial)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 }
-                    ];
-                    requiredIds.forEach(req => {
-                        if (!parsed.some(i => i.id === req.id)) {
-                            parsed.push(req);
-                        }
-                    });
+                    let parsed = JSON.parse(saved);
+                    const savedVersion = JSON.parse(localStorage.getItem('thingCountApp_v2_dataVersion') || '1');
+                    for (let v = savedVersion + 1; v <= DATA_VERSION; v++) {
+                        if (MIGRATIONS[v]) parsed = MIGRATIONS[v](parsed);
+                    }
                     return parsed;
                 }
                 return INITIAL_DATA;
@@ -190,8 +213,33 @@
             const pressTimerRef = useRef(null);
             const isLongPressActiveRef = useRef(false);
             const touchStartPosRef = useRef({ x: 0, y: 0 });
+            const closedByBackRef = useRef(false);
 
-            useEffect(() => { localStorage.setItem('thingCountApp_v2_data', JSON.stringify(items)); }, [items]);
+            // While the edit page is open it owns a browser history entry, so browser back closes it without saving.
+            const isEditorOpen = editingItem !== null;
+            useEffect(() => {
+                if (!isEditorOpen) return;
+                window.history.pushState({ thingCountEditor: true }, '');
+                const onBack = () => {
+                    closedByBackRef.current = true;
+                    setItemToDelete(null);
+                    setEditingItem(null);
+                };
+                window.addEventListener('popstate', onBack);
+                return () => {
+                    window.removeEventListener('popstate', onBack);
+                    // Closed by Cancel/Save/Delete: drop the history entry we added
+                    if (!closedByBackRef.current) window.history.back();
+                    closedByBackRef.current = false;
+                    // The long-press that opened the editor must not keep blocking the +/- buttons
+                    isLongPressActiveRef.current = false;
+                };
+            }, [isEditorOpen]);
+
+            useEffect(() => {
+                localStorage.setItem('thingCountApp_v2_data', JSON.stringify(items));
+                localStorage.setItem('thingCountApp_v2_dataVersion', JSON.stringify(DATA_VERSION));
+            }, [items]);
             useEffect(() => { localStorage.setItem('thingCountApp_v2_cats', JSON.stringify(categories)); }, [categories]);
             useEffect(() => { localStorage.setItem('thingCountApp_v2_history', JSON.stringify(history)); }, [history]);
             useEffect(() => { localStorage.setItem('thingCountApp_v2_historyIndex', JSON.stringify(historyIndex)); }, [historyIndex]);
