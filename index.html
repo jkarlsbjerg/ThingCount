@@ -131,6 +131,7 @@
             { id: '36', name: '40 x20 air squat', exportName: 'x20 air squat', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '37', name: '41 squat stretch', exportName: 'deep squat stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '38', name: '50 skater twist', exportName: 'skater twist', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '38b', name: '52 x5 level top-squats', exportName: 'x5 level top-squats', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '38a', name: '50 x10 walking lunges', exportName: 'x10 walking lunges', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '39', name: '51 x10 calf', exportName: 'x10 calf raise and stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '39a', name: '52 x10 hip airplane', exportName: 'x10 hip airplane', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
@@ -153,7 +154,7 @@
 
         // One-time changes to saved data, applied in order when the stored version is lower.
         // Runs once per browser, so squares deleted later stay deleted.
-        const DATA_VERSION = 3;
+        const DATA_VERSION = 4;
         const fromCode = id => INITIAL_DATA.find(i => i.id === id);
         const addFromCode = (items, ids) => [...items, ...ids.filter(id => !items.some(i => i.id === id)).map(fromCode)];
         const MIGRATIONS = {
@@ -163,7 +164,8 @@
                     .map(i => i.id === '40' && i.name === '35 Luis' ? { ...i, name: '35 Luis/physio', exportName: 'Luis/physio' } : i);
                 return addFromCode(next, ['30b', '38a', '39a', '39b']);
             },
-            3: (items) => addFromCode(items, ['39c'])
+            3: (items) => addFromCode(items, ['39c']),
+            4: (items) => addFromCode(items, ['38b'])
         };
 
         function App() {
