@@ -131,7 +131,7 @@
             { id: '36', name: '40 x20 air squat', exportName: 'x20 air squat', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '37', name: '41 squat stretch', exportName: 'deep squat stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '38', name: '50 skater twist', exportName: 'skater twist', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '38b', name: '52 x5 level top-squats', exportName: 'x5 level top-squats', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
+            { id: '38b', name: '52 x5 top-squats', exportName: 'x5 top-squats', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
             { id: '38a', name: '50 x10 walking lunges', exportName: 'x10 walking lunges', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '39', name: '51 x10 calf', exportName: 'x10 calf raise and stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '39a', name: '52 x10 hip airplane', exportName: 'x10 hip airplane', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
@@ -154,7 +154,7 @@
 
         // One-time changes to saved data, applied in order when the stored version is lower.
         // Runs once per browser, so squares deleted later stay deleted.
-        const DATA_VERSION = 5;
+        const DATA_VERSION = 6;
         const fromCode = id => INITIAL_DATA.find(i => i.id === id);
         const addFromCode = (items, ids) => [...items, ...ids.filter(id => !items.some(i => i.id === id)).map(fromCode)];
         const MIGRATIONS = {
@@ -167,7 +167,8 @@
             3: (items) => addFromCode(items, ['39c']),
             4: (items) => addFromCode(items, ['38b']),
             // Both 52 squares take the 53/54 color, unless recolored by hand
-            5: (items) => items.map(i => ['38b', '39a'].includes(i.id) && i.color === BASE_COLORS[6] ? { ...i, color: BASE_COLORS[1] } : i)
+            5: (items) => items.map(i => ['38b', '39a'].includes(i.id) && i.color === BASE_COLORS[6] ? { ...i, color: BASE_COLORS[1] } : i),
+            6: (items) => items.map(i => i.id === '38b' && i.name === '52 x5 level top-squats' ? { ...i, name: '52 x5 top-squats', exportName: i.exportName === 'x5 level top-squats' ? 'x5 top-squats' : i.exportName } : i)
         };
 
         function App() {
