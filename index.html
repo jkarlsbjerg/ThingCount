@@ -87,58 +87,60 @@
             '#79b756', '#e4ed86', '#dc88ae', '#e2e8f0'
         ];
 
-        const INITIAL_CATEGORIES = ['None', 'Stretch', 'Shoulder', 'Massage', 'Mobility', 'Other'];
+        const INITIAL_CATEGORIES = ['None', 'Floor', 'Stretch', 'Shoulder', 'Massage', 'Mobility', 'Other'];
 
         const INITIAL_DATA = [
-            { id: '1', name: '01 cat/cow', exportName: 'cat/cow', exportGroup: 'None', color: BASE_COLORS[0], count: 0 },
-            { id: '2', name: '02 chest hang', exportName: 'chest hang', exportGroup: 'None', color: BASE_COLORS[0], count: 0 },
-            { id: '3', name: '03 x5 trans ab', exportName: 'x5 trans ab', exportGroup: 'None', color: BASE_COLORS[0], count: 0 },
-            { id: '4', name: '04 bridge', exportName: 'bridge', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '5', name: '05 knee twist', exportName: 'knee twist', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '6', name: '06a flat-b twist', exportName: 'flat-back twist', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '7', name: '06b x5 open book', exportName: 'x5 open book', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '8', name: '06c hip int/ext', exportName: 'hip int/ext', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '9', name: '07 x20 crunch', exportName: 'x20 crunch', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '10', name: '08 x20 oblique', exportName: 'x20 oblique crunch', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '11', name: '09 x3 McGill curl up', exportName: 'x3 McGill curl up', exportGroup: 'None', color: BASE_COLORS[1], count: 0 },
-            { id: '12', name: '09a x30s side plank', exportName: '30s side plank', exportGroup: 'None', color: BASE_COLORS[2], count: 0 },
-            { id: '13', name: '09b x10 s plank march', exportName: 'x10 side plank march', exportGroup: 'None', color: BASE_COLORS[2], count: 0 },
-            { id: '14', name: '09c x5 push-ups', exportName: 'x5 push-ups', exportGroup: 'None', color: BASE_COLORS[2], count: 0 },
-            { id: '15', name: '09d x3 bird dog', exportName: 'x3 bird dog', exportGroup: 'None', color: BASE_COLORS[2], count: 0 },
-            { id: '16', name: '09e x5 DNS star', exportName: 'x5 DNS star', exportGroup: 'None', color: BASE_COLORS[2], count: 0 },
-            { id: '17', name: '10 hip flex', exportName: 'hip flexor', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '17a', name: '10 couch', exportName: 'couch', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '18', name: '10 quad', exportName: 'quad', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '19', name: '11 chest', exportName: 'chest', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '20', name: '12 lat', exportName: 'lat', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '21', name: '13 shoulder ROM', exportName: 'shoulder ROM', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '22', name: '14 ham', exportName: 'ham', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '23', name: '15 inner thigh', exportName: 'inner thigh', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '24', name: '16 hip rotator', exportName: 'hip rotator', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '25', name: '17 t-spine twist', exportName: 't-spine twist', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
-            { id: '26', name: '20 band full round', exportName: 'full round', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-            { id: '27', name: '21 W-hold', exportName: 'W-hold', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-            { id: '28', name: '22 pull apart', exportName: 'pull apart', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-            { id: '29', name: '23 alphabet', exportName: 'RC alphabet', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-            { id: '30', name: '24 external', exportName: 'RC external', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-            { id: '30b', name: '25 x10 chin tuck', exportName: 'x10 chin tuck', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
-            { id: '31', name: '30 mas shin', exportName: 'shin', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-            { id: '32', name: '31 mas gun', exportName: 'gun', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-            { id: '33', name: '32 mas finger', exportName: 'finger', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-            { id: '34', name: '33 mas ball', exportName: 'ball', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-            { id: '35', name: '34 quad roll', exportName: 'quad roll', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-            { id: '40', name: '35 Luis/physio', exportName: 'Luis/physio', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
-            { id: '36', name: '40 x20 air squat', exportName: 'x20 air squat', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '37', name: '41 squat stretch', exportName: 'deep squat stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '38', name: '50 skater twist', exportName: 'skater twist', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '38b', name: '52 x5 top-squat', exportName: 'x5 top-squat', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
-            { id: '38a', name: '50 x10 walking lunges', exportName: 'x10 walking lunges', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '39', name: '51 x10 calf', exportName: 'x10 calf raise and stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '39a', name: '52 x10 hip airplane', exportName: 'x10 hip airplane', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
-            { id: '39b', name: '53 x2 hip CAR', exportName: 'x2 hip CAR', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
-            { id: '39c', name: '54 hip 90/90', exportName: 'hip 90/90', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
-            { id: '60', name: '60 SMM (full)', exportName: 'SMM (full)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 },
-            { id: '61', name: '61 SMM (partial)', exportName: 'SMM (partial)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 }
+            { id: '1', name: '02 cat/cow', exportName: 'cat/cow', exportGroup: 'Floor', color: BASE_COLORS[0], count: 0 },
+            { id: '2', name: '04 chest hang', exportName: 'chest hang', exportGroup: 'Floor', color: BASE_COLORS[0], count: 0 },
+            { id: '3', name: '06 x5 trans ab', exportName: 'x5 trans ab', exportGroup: 'Floor', color: BASE_COLORS[0], count: 0 },
+            { id: '4', name: '08 bridge', exportName: 'bridge', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '5', name: '10 knee twist', exportName: 'knee twist', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '6', name: '12 flat-b twist', exportName: 'flat-back twist', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '7', name: '14 x5 open book', exportName: 'x5 open book', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '8', name: '16 hip int/ext', exportName: 'hip int/ext', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '39c', name: '18 hip 90/90', exportName: 'hip 90/90', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '62', name: '20 hip 3-30', exportName: 'hip 3-30', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '9', name: '22 x20 crunch', exportName: 'x20 crunch', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '10', name: '24 x20 oblique', exportName: 'x20 oblique crunch', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '11', name: '26 x3 McGill curl up', exportName: 'x3 McGill curl up', exportGroup: 'Floor', color: BASE_COLORS[1], count: 0 },
+            { id: '12', name: '28 x30s side plank', exportName: '30s side plank', exportGroup: 'Floor', color: BASE_COLORS[2], count: 0 },
+            { id: '13', name: '30 x10 s plank march', exportName: 'x10 side plank march', exportGroup: 'Floor', color: BASE_COLORS[2], count: 0 },
+            { id: '14', name: '32 x5 push-ups', exportName: 'x5 push-ups', exportGroup: 'Floor', color: BASE_COLORS[2], count: 0 },
+            { id: '63', name: '34 x10 clam shells', exportName: 'x10 clam shells', exportGroup: 'Floor', color: BASE_COLORS[2], count: 0 },
+            { id: '16', name: '36 x5 DNS star', exportName: 'x5 DNS star', exportGroup: 'Floor', color: BASE_COLORS[2], count: 0 },
+            { id: '15', name: '38 x3 bird dog', exportName: 'x3 bird dog', exportGroup: 'Floor', color: BASE_COLORS[2], count: 0 },
+            { id: '17', name: '40 hip flex', exportName: 'hip flexor', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '17a', name: '42 couch', exportName: 'couch', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '18', name: '44 quad', exportName: 'quad', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '19', name: '46 chest', exportName: 'chest', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '20', name: '48 lat', exportName: 'lat', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '21', name: '50 shoulder ROM', exportName: 'shoulder ROM', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '22', name: '52 ham', exportName: 'ham', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '23', name: '54 inner thigh', exportName: 'inner thigh', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '24', name: '56 hip rotator', exportName: 'hip rotator', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '25', name: '58 t-spine twist', exportName: 't-spine twist', exportGroup: 'Stretch', color: BASE_COLORS[3], count: 0 },
+            { id: '26', name: '60 band full round', exportName: 'full round', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '27', name: '61 W-hold', exportName: 'W-hold', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '28', name: '62 pull apart', exportName: 'pull apart', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '29', name: '63 alphabet', exportName: 'RC alphabet', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '30', name: '64 external', exportName: 'RC external', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '30b', name: '65 x10 chin tuck', exportName: 'x10 chin tuck', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '31', name: '70 mas shin', exportName: 'shin', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
+            { id: '32', name: '71 mas gun', exportName: 'gun', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
+            { id: '33', name: '72 mas finger', exportName: 'finger', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
+            { id: '34', name: '73 mas ball', exportName: 'ball', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
+            { id: '35', name: '74 quad roll', exportName: 'quad roll', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
+            { id: '40', name: '75 Luis/physio', exportName: 'Luis/physio', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
+            { id: '36', name: '80 x20 air squat', exportName: 'x20 air squat', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '37', name: '82 squat stretch', exportName: 'deep squat stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '38', name: '84 skater twist', exportName: 'skater twist', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '38b', name: '86 x5 top-squat', exportName: 'x5 top-squat', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
+            { id: '38a', name: '88 x10 walking lunges', exportName: 'x10 walking lunges', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '39', name: '90 x10 calf', exportName: 'x10 calf raise and stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '39a', name: '92 x10 hip airplane', exportName: 'x10 hip airplane', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
+            { id: '39b', name: '94 x2 hip CAR', exportName: 'x2 hip CAR', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
+            { id: '60', name: '96 SMM (full)', exportName: 'SMM (full)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 },
+            { id: '61', name: '98 SMM (partial)', exportName: 'SMM (partial)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 }
         ];
         
         function darkenColor(hex, percent) {
@@ -154,7 +156,7 @@
 
         // One-time changes to saved data, applied in order when the stored version is lower.
         // Runs once per browser, so squares deleted later stay deleted.
-        const DATA_VERSION = 7;
+        const DATA_VERSION = 8;
         const fromCode = id => INITIAL_DATA.find(i => i.id === id);
         const addFromCode = (items, ids) => [...items, ...ids.filter(id => !items.some(i => i.id === id)).map(fromCode)];
         const MIGRATIONS = {
@@ -169,7 +171,22 @@
             // Both 52 squares take the 53/54 color, unless recolored by hand
             5: (items) => items.map(i => ['38b', '39a'].includes(i.id) && i.color === BASE_COLORS[6] ? { ...i, color: BASE_COLORS[1] } : i),
             6: (items) => items.map(i => i.id === '38b' && i.name === '52 x5 level top-squats' ? { ...i, name: '52 x5 top-squats', exportName: i.exportName === 'x5 level top-squats' ? 'x5 top-squats' : i.exportName } : i),
-            7: (items) => items.map(i => i.id === '38b' && i.name === '52 x5 top-squats' ? { ...i, name: '52 x5 top-squat', exportName: i.exportName === 'x5 top-squats' ? 'x5 top-squat' : i.exportName } : i)
+            7: (items) => items.map(i => i.id === '38b' && i.name === '52 x5 top-squats' ? { ...i, name: '52 x5 top-squat', exportName: i.exportName === 'x5 top-squats' ? 'x5 top-squat' : i.exportName } : i),
+            // Renumbering and the new Floor group: take the code's number and group,
+            // unless the name text or group was changed by hand
+            8: (items) => {
+                const withoutNumber = name => name.replace(/^\S+\s+/, '');
+                const next = items.map(i => {
+                    const code = fromCode(i.id);
+                    if (!code) return i;
+                    let updated = i;
+                    if (withoutNumber(i.name) === withoutNumber(code.name)) updated = { ...updated, name: code.name };
+                    const oldGroup = i.id === '39c' ? 'Mobility' : 'None';
+                    if (code.exportGroup === 'Floor' && i.exportGroup === oldGroup) updated = { ...updated, exportGroup: 'Floor' };
+                    return updated;
+                });
+                return addFromCode(next, ['62', '63']);
+            }
         };
 
         function App() {
@@ -190,7 +207,10 @@
                 const saved = localStorage.getItem('thingCountApp_v2_cats');
                 if (saved) {
                     const parsed = JSON.parse(saved);
-                    if (!parsed.includes('Mobility')) parsed.push('Mobility');
+                    // Groups introduced later are added once, so deleting them afterwards sticks
+                    const savedVersion = JSON.parse(localStorage.getItem('thingCountApp_v2_dataVersion') || '1');
+                    if (savedVersion < 2 && !parsed.includes('Mobility')) parsed.push('Mobility');
+                    if (savedVersion < 8 && !parsed.includes('Floor')) parsed.splice(parsed.includes('None') ? parsed.indexOf('None') + 1 : 0, 0, 'Floor');
                     return parsed;
                 }
                 return INITIAL_CATEGORIES;
