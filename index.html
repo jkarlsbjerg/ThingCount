@@ -135,9 +135,9 @@
             { id: '36', name: '80 x20 air squat', exportName: 'x20 air squat', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '37', name: '82 squat stretch', exportName: 'deep squat stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
             { id: '38', name: '84 skater twist', exportName: 'skater twist', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '38b', name: '86 x5 top-squat', exportName: 'x5 top-squat', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
-            { id: '38a', name: '88 x10 walking lunges', exportName: 'x10 walking lunges', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
-            { id: '39', name: '90 x10 calf', exportName: 'x10 calf raise and stretch', exportGroup: 'Mobility', color: BASE_COLORS[6], count: 0 },
+            { id: '38a', name: '86 x10 walking lunges', exportName: 'x10 walking lunges', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
+            { id: '39', name: '88 x10 calf', exportName: 'x10 calf raise and stretch', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
+            { id: '38b', name: '90 x5 top-squat', exportName: 'x5 top-squat', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
             { id: '39a', name: '92 x10 hip airplane', exportName: 'x10 hip airplane', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
             { id: '39b', name: '94 x2 hip CAR', exportName: 'x2 hip CAR', exportGroup: 'Mobility', color: BASE_COLORS[1], count: 0 },
             { id: '60', name: '96 SMM (full)', exportName: 'SMM (full)', exportGroup: 'Mobility', color: BASE_COLORS[2], count: 0 },
@@ -157,7 +157,7 @@
 
         // One-time changes to saved data, applied in order when the stored version is lower.
         // Runs once per browser, so squares deleted later stay deleted.
-        const DATA_VERSION = 9;
+        const DATA_VERSION = 10;
         const fromCode = id => INITIAL_DATA.find(i => i.id === id);
         const addFromCode = (items, ids) => [...items, ...ids.filter(id => !items.some(i => i.id === id)).map(fromCode)];
         const MIGRATIONS = {
@@ -188,7 +188,18 @@
                 });
                 return addFromCode(next, ['62', '63']);
             },
-            9: (items) => addFromCode(items, ['30c'])
+            9: (items) => addFromCode(items, ['30c']),
+            // Mobility reorder: new numbers for lunges, calf and top-squat; lunges and calf turn lavender
+            // (skipped where the name text or color was changed by hand)
+            10: (items) => items.map(i => {
+                if (!['38a', '39', '38b'].includes(i.id)) return i;
+                const code = fromCode(i.id);
+                const withoutNumber = name => name.replace(/^\S+\s+/, '');
+                let updated = i;
+                if (withoutNumber(i.name) === withoutNumber(code.name)) updated = { ...updated, name: code.name };
+                if (i.id !== '38b' && i.color === BASE_COLORS[6]) updated = { ...updated, color: BASE_COLORS[1] };
+                return updated;
+            })
         };
 
         function App() {
