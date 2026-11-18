@@ -125,6 +125,7 @@
             { id: '29', name: '63 alphabet', exportName: 'RC alphabet', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
             { id: '30', name: '64 external', exportName: 'RC external', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
             { id: '30b', name: '65 x10 chin tuck', exportName: 'x10 chin tuck', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
+            { id: '30c', name: '66 x5 yes-no', exportName: 'x5 yes-no', exportGroup: 'Shoulder', color: BASE_COLORS[4], count: 0 },
             { id: '31', name: '70 mas shin', exportName: 'shin', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
             { id: '32', name: '71 mas gun', exportName: 'gun', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
             { id: '33', name: '72 mas finger', exportName: 'finger', exportGroup: 'Massage', color: BASE_COLORS[5], count: 0 },
@@ -156,7 +157,7 @@
 
         // One-time changes to saved data, applied in order when the stored version is lower.
         // Runs once per browser, so squares deleted later stay deleted.
-        const DATA_VERSION = 8;
+        const DATA_VERSION = 9;
         const fromCode = id => INITIAL_DATA.find(i => i.id === id);
         const addFromCode = (items, ids) => [...items, ...ids.filter(id => !items.some(i => i.id === id)).map(fromCode)];
         const MIGRATIONS = {
@@ -186,7 +187,8 @@
                     return updated;
                 });
                 return addFromCode(next, ['62', '63']);
-            }
+            },
+            9: (items) => addFromCode(items, ['30c'])
         };
 
         function App() {
